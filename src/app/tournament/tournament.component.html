@@ -1,0 +1,79 @@
+<div class="o-container">
+  <form class="o-grid u-baseline">
+    <div class="o-grid__item u-1/1">
+      <label>
+        Tournament ID
+        <input type="number" name="tournamentId" id="tournamentId" class="c-input u-1/1" [(ngModel)]="tournamentId">
+      </label>
+    </div>
+
+    <div class="o-grid__item u-1/5">
+      <label>
+        Next Go4 #
+        <input type="number" name="nextNumber" id="nextNumber" class="c-input u-1/1" [(ngModel)]="nextNumber">
+      </label>
+    </div>
+
+    <div class="o-grid__item u-4/5">
+      <label>
+        Next Go4 Date
+        <input type="text" name="nextDate" id="nextDate" class="c-input u-1/1" [(ngModel)]="nextDate">
+      </label>
+    </div>
+
+    <label class="o-grid__item u-1/4">
+      Raffle Winner #1
+      <input type="number" name="raffle1" id="raffle1" class="c-input u-1/1" [(ngModel)]="raffle1">
+    </label>
+
+    <label class="o-grid__item u-1/4">
+      Raffle Winner #2
+      <input type="number" name="raffle2" id="raffle2" class="c-input u-1/1" [(ngModel)]="raffle2">
+    </label>
+
+    <label class="o-grid__item u-1/4">
+      Raffle Winner #3
+      <input type="number" name="raffle3" id="raffle3" class="c-input u-1/1" [(ngModel)]="raffle3">
+    </label>
+
+    <label class="o-grid__item u-1/4">
+      Raffle Winner #4
+      <input type="number" name="raffle4" id="raffle4" class="c-input u-1/1" [(ngModel)]="raffle4">
+    </label>
+
+    <div class="o-grid__item">
+      <button
+        [disabled]="!raffle1 || !raffle2 || !raffle3 || !raffle4 || !nextDate || !nextNumber || !tournamentId"
+        (click)="build$ = build(tournamentId, raffle1, raffle2, raffle3, raffle4);"
+        class="c-button c-button--primary c-button--big"
+      >
+        Generate
+      </button>
+    </div>
+  </form>
+
+  <div *ngIf="build$">
+    <h2>Title</h2>
+    <input type="text" class="c-input u-1/1" [ngModel]="(build$ | async)?.title" readonly>
+
+    <h2>Teaser</h2>
+    <textarea rows="4" class="c-input u-1/1" readonly>
+      {{ (build$ | async)?.teaser }}
+    </textarea>
+
+    <h2>Short Body</h2>
+    <textarea rows="4" class="c-input u-1/1" readonly>
+      {{ (build$ | async)?.short }}
+    </textarea>
+
+    <h2>Body</h2>
+    <textarea rows="50" class="c-input u-1/1" readonly>
+      {{ (build$ | async)?.body }}
+    </textarea>
+
+    <h2>Twitter</h2>
+    <textarea rows="4" class="c-input u-1/1" readonly>
+      {{ (build$ | async)?.Twitter }}
+    </textarea>
+  </div>
+</div>
